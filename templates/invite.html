@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Invite template</title>
+      <link rel="stylesheet" href="/css/invite.css">
+   </head>
+   <body>
+      <nav>
+         <h1>Chat Room</h1>
+      </nav>
+      <div class="container">
+         <div class="inv-cont">
+            <h1 class="title">You have an invite from {{ admin }}!</h1>
+            <button class="btn" id="join">Join chat room</button>
+         </div>
+      </div>
+      <script>
+      document.getElementById("join").addEventListener("click", function () {
+         let id = new URLSearchParams(document.location.search).get("id");
+         let data = new FormData();
+         data.append("id", id);
+         $.ajax({
+            url: "/php/join.php",
+            type: "POST",
+            data: data,
+            success: function (response) {
+               if (response == 1) {
+                  location.href = `/room?id=${id}`;
+               } else if (response == 2) {
+                  alert("Room ID not found");
+               } else if (response == 3) {
+                  alert("A database error occurred");
+               } else if (response == 4) {
+                  location.href = `/room?id=${id}`;
+               } else if (response == 5) {
+                  alert("You are banned from this room.");
+               } else {
+                  alert("An unknown error occurred: \n\n" + response);
+               }
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+         });
+      });
+      </script>
+   </body>
+</html>
