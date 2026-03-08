@@ -6,7 +6,7 @@ import uuid
 app = Flask(__name__)
 app.secret_key = 'changethis_to_something_random'
 
-# ─── DB ───────────────────────────────────────────────────────────────────────
+# ─── DB ────────
 
 def db():
     return mysql.connector.connect(
@@ -28,8 +28,7 @@ def qrun(sql, params=()):
     cur.execute(sql, params); con.commit()
     cur.close(); con.close()
 
-# ─── HELPERS ──────────────────────────────────────────────────────────────────
-
+# ─── HELPERS ──────
 def uid():
     return session.get('uid') or request.cookies.get('uid')
 
@@ -40,8 +39,7 @@ def get_username(user_uid=None):
 def logged_in():
     return bool(uid())
 
-# ─── PAGES ────────────────────────────────────────────────────────────────────
-
+# ─── PAGES ─────────
 @app.route('/')
 def index():
     if not logged_in():
@@ -94,7 +92,7 @@ def logout():
     resp.delete_cookie('logged_in')
     return resp
 
-# ─── AUTH ─────────────────────────────────────────────────────────────────────
+# ─── AUTH ────────
 
 @app.route('/php/login.php', methods=['POST'])
 def php_login():
@@ -130,8 +128,7 @@ def php_signup():
         resp.set_cookie('logged_in', '1', max_age=86400*30, path='/')
     return resp
 
-# ─── ROOMS ────────────────────────────────────────────────────────────────────
-
+# ─── ROOMS ───────────────
 @app.route('/php/create.php', methods=['POST'])
 def php_create():
     name = request.form.get('name')
@@ -214,7 +211,7 @@ def php_check_admin():
     room = qone("SELECT admin FROM rooms WHERE uid=%s", (room_id,))
     return '1' if room and room['admin'] == get_username() else '0'
 
-# ─── MESSAGES ─────────────────────────────────────────────────────────────────
+# ─── MESSAGES ──────────────
 
 @app.route('/php/fetch.php', methods=['POST'])
 def php_fetch():
@@ -247,7 +244,7 @@ def php_delete():
     qrun("UPDATE rooms SET messages=%s WHERE uid=%s", (json.dumps(msgs), room_id))
     return '1'
 
-# ─── MEMBERS ──────────────────────────────────────────────────────────────────
+# ─── MEMBERS ──────────────────
 
 @app.route('/php/members.php', methods=['POST'])
 def php_members():
@@ -264,7 +261,7 @@ def php_member_status():
         result.append([m, row['online'] if row else 'false'])
     return json.dumps(result)
 
-# ─── MODERATION ───────────────────────────────────────────────────────────────
+# ─── MODERATION ────────────\
 
 @app.route('/php/muteUser.php', methods=['POST'])
 def php_mute():
@@ -340,8 +337,7 @@ def php_get_banned():
     room = qone("SELECT banned FROM rooms WHERE uid=%s", (request.form.get('rId'),))
     return room['banned'] if room else '[]'
 
-# ─── FRIENDS ──────────────────────────────────────────────────────────────────
-
+# ─── FRIENDS ─────────
 @app.route('/php/sendRequest.php', methods=['POST'])
 def php_send_request():
     target_name = request.form.get('user')
@@ -396,7 +392,7 @@ def php_get_online_friends():
     online = [f for f in friends if (lambda r: r and r['online'] == 'true')(qone("SELECT online FROM users WHERE username=%s", (f,)))]
     return json.dumps(online)
 
-# ─── BOOKMARKS ────────────────────────────────────────────────────────────────
+# ─── BOOKMARKS ──────────
 
 @app.route('/php/bookmark.php', methods=['POST'])
 def php_bookmark():
@@ -426,8 +422,7 @@ def php_delete_bookmark():
     qrun("UPDATE users SET bookmarked=%s WHERE uid=%s", (json.dumps(bookmarks), uid()))
     return '1'
 
-# ─── ONLINE STATUS ────────────────────────────────────────────────────────────
-
+# ─── ONLINE STATUS ─────────
 @app.route('/php/load.php', methods=['POST'])
 def php_load():
     qrun("UPDATE users SET online='true' WHERE uid=%s", (uid(),))
