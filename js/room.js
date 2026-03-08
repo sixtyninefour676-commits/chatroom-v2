@@ -24,7 +24,7 @@ function getDate(date) {
 
 let user = "";
 $.ajax({
-  url: "./php/userFromId.php",
+  url: "/php/userFromId.php",
   type: "POST",
   data: { novalue: true },
   success: function (response) {
@@ -38,8 +38,7 @@ let form = document.createElement("form");
 let data = new FormData(form);
 data.append("rId", rId);
 $.ajax({
-  // ? Checking if user is admin
-  url: "./php/checkAdmin.php",
+  url: "/php/checkAdmin.php",
   type: "POST",
   data: data,
   success: function (response) {
@@ -57,8 +56,7 @@ $.ajax({
 });
 
 $.ajax({
-  // ? Getting all friends of user
-  url: "./php/getFriends.php",
+  url: "/php/getFriends.php",
   type: "POST",
   data: { nodata: true },
   success: function (response) {
@@ -94,8 +92,7 @@ function generateMuted(users) {
 }
 
 $.ajax({
-  // ? Getting all muted users
-  url: "./php/getMuted.php",
+  url: "/php/getMuted.php",
   type: "POST",
   data: data,
   success: function (response) {
@@ -130,8 +127,7 @@ function generateBanned(users) {
 }
 
 $.ajax({
-  // ? Getting all banned users
-  url: "./php/getBanned.php",
+  url: "/php/getBanned.php",
   type: "POST",
   data: data,
   success: function (response) {
@@ -145,8 +141,7 @@ $.ajax({
 data = new FormData(form);
 data.append("rId", rId);
 $.ajax({
-  // ? Checking if user is muted
-  url: "./php/checkMuted.php",
+  url: "/php/checkMuted.php",
   type: "POST",
   data: data,
   success: function (response) {
@@ -188,7 +183,7 @@ document.getElementById("change").addEventListener("click", () => {
   data.append("rId", rId);
   if (name != "") {
     $.ajax({
-      url: "./php/changeName.php",
+      url: "/php/changeName.php",
       type: "POST",
       data: data,
       success: function (response) {
@@ -201,7 +196,6 @@ document.getElementById("change").addEventListener("click", () => {
           alert("You are not authorized to perform this action");
         } else {
           alert("An unknown error occured: \n\n" + response);
-          console.log("An unknown error occured: \n\n" + response);
         }
       },
       cache: false,
@@ -216,27 +210,19 @@ document.getElementById("change").addEventListener("click", () => {
 document.getElementById("transferAdmin").addEventListener("click", () => {
   const toTransfer = document.getElementById("transfer").value;
   if (toTransfer != "") {
-    if (
-      confirm("Are you sure you want to transfer admin to " + toTransfer + "?")
-    ) {
-      if (
-        confirm(
-          "You will loose all your privileges after transferring admin. Do you wish to proceed?"
-        )
-      ) {
+    if (confirm("Are you sure you want to transfer admin to " + toTransfer + "?")) {
+      if (confirm("You will loose all your privileges after transferring admin. Do you wish to proceed?")) {
         let form = document.createElement("form");
         let data = new FormData(form);
         data.append("name", toTransfer);
         data.append("rId", rId);
         $.ajax({
-          url: "./php/transferAdmin.php",
+          url: "/php/transferAdmin.php",
           type: "POST",
           data: data,
           success: function (response) {
             if (response == 1) {
-              alert(
-                "Admin has been transferred, you no longer have any power in this room."
-              );
+              alert("Admin has been transferred, you no longer have any power in this room.");
               location.reload();
             } else if (response == 0) {
               alert("There was an error updating the database");
@@ -244,7 +230,6 @@ document.getElementById("transferAdmin").addEventListener("click", () => {
               alert("You are not authorized to perform this action");
             } else {
               alert("An unknown error occured: \n\n" + response);
-              console.log("An unknown error occured: \n\n" + response);
             }
           },
           cache: false,
@@ -266,7 +251,7 @@ document.getElementById("muteBtn").addEventListener("click", () => {
     data.append("rId", rId);
     data.append("user", user);
     $.ajax({
-      url: "./php/muteUser.php",
+      url: "/php/muteUser.php",
       type: "POST",
       data: data,
       success: function (response) {
@@ -283,7 +268,6 @@ document.getElementById("muteBtn").addEventListener("click", () => {
           alert("You cannot mute an admin");
         } else {
           alert("An unknown error occured: \n\n" + response);
-          console.log("An unknown error occured: \n\n" + response);
         }
       },
       cache: false,
@@ -303,7 +287,7 @@ document.getElementById("unmuteBtn").addEventListener("click", () => {
     data.append("rId", rId);
     data.append("user", toUnmute);
     $.ajax({
-      url: "./php/unmuteUser.php",
+      url: "/php/unmuteUser.php",
       type: "POST",
       data: data,
       success: function (response) {
@@ -318,7 +302,6 @@ document.getElementById("unmuteBtn").addEventListener("click", () => {
           alert("User is not muted");
         } else {
           alert("An unknown error occured: \n\n" + response);
-          console.log("An unknown error occured: \n\n" + response);
         }
       },
       cache: false,
@@ -338,7 +321,7 @@ document.getElementById("kickBtn").addEventListener("click", () => {
     data.append("rId", rId);
     data.append("user", toKick);
     $.ajax({
-      url: "./php/kickUser.php",
+      url: "/php/kickUser.php",
       type: "POST",
       data: data,
       success: function (response) {
@@ -352,7 +335,6 @@ document.getElementById("kickBtn").addEventListener("click", () => {
           alert("You cannot kick the admin of the room");
         } else {
           alert("An unknown error occured: \n\n" + response);
-          console.log("An unknown error occured: \n\n" + response);
         }
       },
       cache: false,
@@ -372,7 +354,7 @@ document.getElementById("banBtn").addEventListener("click", () => {
     data.append("rId", rId);
     data.append("user", toBan);
     $.ajax({
-      url: "./php/banUser.php",
+      url: "/php/banUser.php",
       type: "POST",
       data: data,
       success: function (response) {
@@ -386,7 +368,6 @@ document.getElementById("banBtn").addEventListener("click", () => {
           alert("You are not authorized to perform this action");
         } else {
           alert("An unknown error occured: \n\n" + response);
-          console.log("An unknown error occured: \n\n" + response);
         }
       },
       cache: false,
@@ -406,7 +387,7 @@ document.getElementById("unbanBtn").addEventListener("click", () => {
     data.append("rId", rId);
     data.append("user", toUnban);
     $.ajax({
-      url: "./php/unbanUser.php",
+      url: "/php/unbanUser.php",
       type: "POST",
       data: data,
       success: function (response) {
@@ -418,7 +399,6 @@ document.getElementById("unbanBtn").addEventListener("click", () => {
           alert("You are not authorized to perform this action");
         } else {
           alert("An unknown error occured: \n\n" + response);
-          console.log("An unknown error occured: \n\n" + response);
         }
       },
       cache: false,
@@ -435,13 +415,13 @@ function leave() {
     let data = new FormData(document.createElement("form"));
     data.append("rId", rId);
     $.ajax({
-      url: "./php/leave.php",
+      url: "/php/leave.php",
       type: "POST",
       data: data,
       success: function (msg) {
         if (msg == "1") {
           alert("You left the chat room.");
-          location.href = "index.php";
+          location.href = "/";
         } else {
           alert("An unknown error occured: \n\n" + msg);
         }
@@ -456,46 +436,35 @@ function leave() {
 function invite() {
   document.getElementById("invite-alert").classList.toggle("hidden");
   document.getElementById("title").innerHTML = "Invite";
-  document.getElementById(
-    "description"
-  ).innerHTML = `Send this link to the person you want to invite:<br><br> <a href="${
-    location.protocol + "//" + location.host + "/Chat Room/invite.php?id=" + rId
+  document.getElementById("description").innerHTML = `Send this link to the person you want to invite:<br><br> <a href="${
+    location.protocol + "//" + location.host + "/invite?id=" + rId
   }" target="_blank">${
-    location.protocol + "//" + location.host + "/Chat Room/invite.php?id=" + rId
+    location.protocol + "//" + location.host + "/invite?id=" + rId
   }</a><button class="copy" onclick="navigator.clipboard.writeText('${
-    location.protocol + "//" + location.host + "/Chat Room/invite.php?id=" + rId
+    location.protocol + "//" + location.host + "/invite?id=" + rId
   }');alert('Copied!');"><i class="fa-regular fa-copy"></i></button><br><br>or<br><br>Share this Room ID with the person joining: ${rId}<button class="copy" onclick="navigator.clipboard.writeText('${rId}');alert('Copied!');"><i class="fa-regular fa-copy"></i></button>`;
 }
 
 function deleteRoom() {
-  if (!confirm("Are you sure you want to delete this room?")) {
-    return;
-  }
-  if (
-    !confirm(
-      "All messages in the chat room will be lost and cannot be recovered, are you sure you want to proceed?"
-    )
-  ) {
-    return;
-  }
+  if (!confirm("Are you sure you want to delete this room?")) return;
+  if (!confirm("All messages in the chat room will be lost and cannot be recovered, are you sure you want to proceed?")) return;
   let form = document.createElement("form");
   let data = new FormData(form);
   data.append("rId", rId);
   $.ajax({
-    url: "./php/deleteRoom.php",
+    url: "/php/deleteRoom.php",
     type: "POST",
     data: data,
     success: function (response) {
       if (response == 1) {
         alert("Room has been deleted");
-        location.href = "index.php";
+        location.href = "/";
       } else if (response == 0) {
         alert("There was an error deleting the room from the database");
       } else if (response == 2) {
         alert("You are not authorized to perform this action");
       } else {
         alert("An unexpected error occured: \n\n" + response);
-        console.log(response);
       }
     },
     cache: false,
@@ -513,9 +482,7 @@ document.getElementById("close").onclick = () => {
 inviteBtn.addEventListener("click", invite);
 
 function addZero(i) {
-  if (i < 10) {
-    i = "0" + i;
-  }
+  if (i < 10) { i = "0" + i; }
   return i;
 }
 
@@ -534,7 +501,7 @@ sendBtn.addEventListener("click", function () {
   data.append("rId", rId);
   data.append("time", time);
   $.ajax({
-    url: "./php/send.php",
+    url: "/php/send.php",
     type: "POST",
     data: data,
     success: function (msg) {
@@ -567,7 +534,7 @@ function sendRequest(username) {
   let data = new FormData(form);
   data.append("user", username);
   $.ajax({
-    url: "./php/sendRequest.php",
+    url: "/php/sendRequest.php",
     type: "POST",
     data: data,
     success: function (response) {
@@ -577,7 +544,6 @@ function sendRequest(username) {
         alert("Error updating the database");
       } else {
         alert("An unknown error occured: \n\n" + response);
-        console.log("An unknown error occured: \n\n" + response);
       }
     },
     cache: false,
@@ -590,7 +556,7 @@ function getMembers() {
   let data = new FormData(document.createElement("form"));
   data.append("rId", rId);
   $.ajax({
-    url: "./php/members.php",
+    url: "/php/members.php",
     type: "POST",
     data: data,
     success: function (msg) {
@@ -607,13 +573,9 @@ function getMembers() {
         if (memberUpdatingIncrement == 1) {
           const selectUsers = document.getElementsByClassName("select-user");
           for (let i = 0; i < selectUsers.length; i++) {
-            selectUsers[
-              i
-            ].innerHTML = `<option value="" disabled selected hidden>Choose a user</option>`;
+            selectUsers[i].innerHTML = `<option value="" disabled selected hidden>Choose a user</option>`;
             for (let j = 0; j < memberArray.length; j++) {
-              selectUsers[
-                i
-              ].innerHTML += `<option value="${memberArray[j]}">${memberArray[j]}</option>`;
+              selectUsers[i].innerHTML += `<option value="${memberArray[j]}">${memberArray[j]}</option>`;
             }
           }
         }
@@ -623,7 +585,7 @@ function getMembers() {
         data.append("members", memberList);
         const membersContainer = document.getElementById("members");
         $.ajax({
-          url: "./php/memberStatus.php",
+          url: "/php/memberStatus.php",
           type: "POST",
           data: data,
           success: function (msg) {
@@ -671,17 +633,13 @@ document.getElementById("close-overlay").addEventListener("click", () => {
 });
 
 function bookmark(index) {
-  let id = "";
-  let sender = "";
-  let content = "";
-  let time = "";
+  let id = "", sender = "", content = "", time = "";
   dbMsg.forEach((element) => {
     if (element.i == index) {
       id = element.id;
       sender = element.sender;
       content = element.content;
       time = element.time;
-      console.log(time);
     }
   });
   let form = document.createElement("form");
@@ -692,7 +650,7 @@ function bookmark(index) {
   data.append("content", content);
   data.append("time", time);
   $.ajax({
-    url: "./php/bookmark.php",
+    url: "/php/bookmark.php",
     type: "POST",
     data: data,
     success: function (response) {
@@ -705,7 +663,6 @@ function bookmark(index) {
         alert("This message is already bookmarked");
       } else {
         alert("An unknown error occured: \n\n" + response);
-        console.log("An unknown error occured: \n\n" + response);
       }
     },
     cache: false,
@@ -717,16 +674,14 @@ function bookmark(index) {
 function del(index) {
   let id = "";
   dbMsg.forEach((element) => {
-    if (element.i == index) {
-      id = element.id;
-    }
+    if (element.i == index) { id = element.id; }
   });
   let form = document.createElement("form");
   let data = new FormData(form);
   data.append("id", id);
   data.append("rId", rId);
   $.ajax({
-    url: "./php/delete.php",
+    url: "/php/delete.php",
     type: "POST",
     data: data,
     success: function (response) {
@@ -746,13 +701,11 @@ function del(index) {
   });
 }
 
-//Fetching messages every 5 seconds
-
 function getMessages() {
   let data = new FormData(document.createElement("form"));
   data.append("rId", rId);
   $.ajax({
-    url: "./php/fetch.php",
+    url: "/php/fetch.php",
     type: "POST",
     data: data,
     success: function (msg) {
@@ -784,14 +737,12 @@ function getMessages() {
               overlay.classList.remove("hidden");
               document.getElementById("delete").classList.remove("hidden");
               msgCLickedIndex = String(i);
-              console.log(msgCLickedIndex);
             });
           } else if (message[i].classList.contains("bookmarkable")) {
             message[i].addEventListener("click", () => {
               overlay.classList.remove("hidden");
               document.getElementById("delete").classList.add("hidden");
               msgCLickedIndex = String(i);
-              console.log(msgCLickedIndex);
             });
           }
         }
@@ -814,7 +765,6 @@ document.getElementById("bookmark").addEventListener("click", () => {
 });
 
 getMessages();
-
 let fetching = setInterval(getMessages, 5000);
 
 window.addEventListener("load", function () {
@@ -823,7 +773,7 @@ window.addEventListener("load", function () {
   let data = new FormData(form);
   data.append("load", "false");
   $.ajax({
-    url: "./php/load.php",
+    url: "/php/load.php",
     type: "POST",
     data: data,
     success: function (response) {
@@ -842,22 +792,15 @@ window.addEventListener("load", function () {
 });
 
 window.onunload = function () {
-  console.log("unload");
   let form = document.createElement("form");
   let data = new FormData(form);
   data.append("unload", "true");
   $.ajax({
-    url: "./php/unload.php",
+    url: "/php/unload.php",
     type: "POST",
     data: data,
     success: function (response) {
-      if (response == "1") {
-        console.log("success setting online");
-      } else if (response == "0") {
-        console.log("Online update failed");
-      } else {
-        console.log("Unknown error: " + response);
-      }
+      console.log(response == "1" ? "success setting offline" : "Online update failed");
     },
     cache: false,
     contentType: false,
