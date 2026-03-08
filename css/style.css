@@ -1,0 +1,530 @@
+@import url("https://fonts.googleapis.com/css2?family=Cabin&display=swap");
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #1b1b1b;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #393939;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #4c4c4c;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+  color: white;
+}
+
+*:focus {
+  outline: none;
+}
+
+input {
+  color: black;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+nav {
+  width: 100vw;
+  height: 8vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgb(36, 36, 36);
+  backdrop-filter: blur(5px);
+  color: white;
+}
+
+nav h1 {
+  font-size: 240%;
+}
+
+.body {
+  width: 100vw;
+  height: 92vh;
+}
+
+#background {
+  width: 100%;
+  height: 100%;
+  z-index: -1000;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: black;
+}
+.content {
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 8vh;
+  width: 100%;
+  height: 100%;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.alert {
+  position: fixed;
+  left: calc(50% - 17.5vw);
+  top: calc(50% - 17.5vh);
+  z-index: 1;
+  width: 35vw;
+  height: 35vh;
+  background-color: #28a745;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.alert #title {
+  font-size: 3em;
+}
+
+.alert #description {
+  width: 80%;
+  font-size: 1.2em;
+}
+
+.alert #close {
+  padding: 10px 30px;
+  font-size: 1.1em;
+  background-color: #19702d;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.alert #close:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+.alert-box {
+  width: 17vw;
+  padding: 30px;
+}
+
+.alerts {
+  display: flex;
+  flex-direction: column-reverse;
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+}
+
+.alert-box .top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 7%;
+}
+
+.alert-success {
+  background-color: #8eff7f;
+}
+
+.alert-error {
+  background-color: #c91337;
+}
+
+.alert-info {
+  background-color: #0388fc;
+}
+
+.closeBtn {
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+#rooms {
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 200px;
+  background-color: rgba(86, 86, 86, 0.1);
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+  position: relative;
+  top: 0;
+}
+
+#rooms h2 {
+  text-align: center;
+  padding: 10px;
+}
+
+#rooms .room .name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#rooms .room * {
+  margin: 10px;
+}
+
+#rooms .room {
+  margin: 20px;
+}
+
+#rooms .room #view {
+  padding: 5px 25px;
+  border: none;
+  cursor: pointer;
+  background-color: rgb(29, 29, 29);
+}
+
+.none {
+  width: 80%;
+  margin: 20px;
+  text-align: center;
+}
+
+.welcome {
+  margin: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.panels {
+  display: flex;
+}
+
+.panels .left {
+  width: calc(100vw - 200px);
+}
+
+.panels .left,
+.panels .right {
+  height: 92vh;
+}
+
+.button {
+  width: 10%;
+  min-width: 200px;
+  height: 125px;
+  background-color: rgba(23, 23, 23, 0.509);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  border: 1px solid white;
+  cursor: pointer;
+  transition: all 0.05s ease-in;
+}
+
+.button p {
+  font-size: 20px;
+  padding: 10px;
+}
+
+.button:hover {
+  background-color: rgba(72, 72, 72, 0.509);
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.buttons .group {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 10vh;
+}
+
+.bookmark {
+  position: fixed;
+  left: 30vw;
+  top: 15vh;
+  width: 40vw;
+  height: 70vh;
+  background-color: #0f0f0f;
+  min-width: 340px;
+  padding: 30px;
+}
+
+.bookmark .title {
+  text-align: center;
+  font-size: 2rem;
+  padding: 20px;
+}
+
+.bookmarks {
+  height: calc(100% - 76px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border: 3px solid rgb(35, 35, 35);
+}
+
+.bookmarks .saved {
+  margin: 30px;
+}
+
+.message {
+  width: fit-content;
+  padding: 10px;
+}
+
+.message .sender {
+  font-size: 1.8rem;
+}
+
+.message .time {
+  color: grey;
+}
+
+.message .msg {
+  font-size: 1.3rem;
+  width: fit-content;
+  display: block;
+  padding-top: 10px;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+#closeBookmarks {
+  background-color: transparent;
+  border: none;
+  font-size: 1.8rem;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.delete-bookmark {
+  width: 100px;
+  height: 40px;
+  background-color: red;
+  border: none;
+  cursor: pointer;
+}
+
+.copy {
+  background-color: transparent;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.friends {
+  width: 60vw;
+  height: 75vh;
+  left: calc(20vw - 100px);
+  top: 12.5vh;
+  position: fixed;
+  background-color: rgb(8, 8, 8);
+  border: 2px solid rgb(41, 41, 41);
+  display: flex;
+  flex-direction: column;
+}
+
+.friends .title {
+  text-align: center;
+  padding: 30px;
+  font-size: 3rem;
+}
+
+.friends #closeFriends {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.friends .options {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.friends .options .option {
+  width: calc(100% / 4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  background-color: #111111;
+  height: 40px;
+  border-left: 1px solid rgb(60, 60, 60);
+  border-right: 1px solid rgb(60, 60, 60);
+  cursor: pointer;
+}
+
+.friends .options .option:hover {
+  background-color: #202020;
+}
+
+.friends .options .option:first-child {
+  border-left: none;
+}
+
+.friends .options .option:last-child {
+  border-right: none;
+}
+
+.friends .cont {
+  width: 100%;
+  height: calc(100% - 146px);
+  background-color: #1b1b1b;
+  position: relative;
+}
+.test {
+  position: absolute;
+  bottom: 0;
+}
+
+.cont .title {
+  font-size: 2.5rem;
+}
+
+.pending {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 80%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.request {
+  width: 97%;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  background-color: #151515;
+  margin: 10px;
+}
+
+.request .sender {
+  white-space: nowrap;
+  margin-left: 30px;
+}
+
+.request .acc {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 1.4rem;
+  margin-right: 30px;
+}
+
+.all,
+.online {
+  height: calc(100% - 126px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.friend,
+.person {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+  background-color: #202020;
+  align-items: center;
+}
+
+.friend .name,
+.person .name {
+  margin-left: 30px;
+}
+
+.friend .dm,
+.person .dm {
+  margin-right: 30px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-size: 1.3rem;
+}
+
+.wrap-add {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.add-friend {
+  width: 80%;
+  height: 50px;
+  background-color: #202020;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  padding: 10px;
+}
+
+#sendRequest {
+  height: 50px;
+  width: 50px;
+  background-color: #202020;
+  color: white;
+  border: none;
+  border-left: 1px solid rgb(24, 24, 24);
+  cursor: pointer;
+}
+
+#settings {
+  border: none;
+  padding: 10px 20px;
+  background-color: rgb(29, 29, 29);
+  cursor: pointer;
+  margin: 5px;
+  position: absolute;
+  right: 30px;
+  font-size: 0.9rem;
+}
+
+#settings i {
+  font-size: 1.2rem;
+  margin: 2px;
+}
