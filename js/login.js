@@ -17,13 +17,13 @@ signup.addEventListener("submit", function (e) {
     password.value.length < 15
   ) {
     $.ajax({
-      url: "./php/login.php",
+      url: "/php/login.php",
       type: "POST",
       data: data,
       success: function (msg) {
         if (msg == 1) {
           console.log("success");
-          location.href = "index.php";
+          location.href = "/";
         } else if (msg == 0) {
           alert("There was an error logging into your account.");
         } else if (msg == 2) {
