@@ -8,7 +8,7 @@ python -m pip install flask mysql-connector-python
 
 ## Setup Steps
 
-1. **Set up the database** — open MySQL and run:
+1. **Set up the database** - open MySQL and run:
    ```
    source setup.sql
    ```
