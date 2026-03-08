@@ -4,7 +4,7 @@ import json
 import uuid
 
 app = Flask(__name__)
-app.secret_key = 'changethis_to_something_random'
+app.secret_key = 'x676767k$mQ2#p'
 
 # ─── DB ────────
 
