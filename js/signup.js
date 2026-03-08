@@ -18,13 +18,13 @@ signup.addEventListener("submit", function (e) {
   ) {
     if (!username.value.includes(",")) {
       $.ajax({
-        url: "./php/signup.php",
+        url: "/php/signup.php",
         type: "POST",
         data: data,
         success: function (msg) {
           if (msg == 1) {
             console.log("success");
-            location.href = "index.php";
+            location.href = "/";
           } else if (msg == 0) {
             alert("There was an error creating your account.");
           } else if (msg == 2) {
