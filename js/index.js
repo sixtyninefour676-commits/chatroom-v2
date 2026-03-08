@@ -32,7 +32,7 @@ window.onunload = function () {
   let data = new FormData(form);
   data.append("unload", "true");
   $.ajax({
-    url: "./php/unload.php",
+    url: "/php/unload.php",
     type: "POST",
     data: data,
     success: function (response) {
@@ -71,7 +71,7 @@ window.addEventListener("load", function () {
   let data = new FormData(form);
   data.append("load", "false");
   $.ajax({
-    url: "./php/load.php",
+    url: "/php/load.php",
     type: "POST",
     data: data,
     success: function (response) {
@@ -188,7 +188,7 @@ document.getElementById("create").addEventListener("click", function () {
     let data = new FormData(form);
     data.append("name", rName);
     $.ajax({
-      url: "./php/create.php",
+      url: "/php/create.php",
       type: "POST",
       data: data,
       success: function (response) {
@@ -199,23 +199,11 @@ document.getElementById("create").addEventListener("click", function () {
           document.getElementById(
             "description"
           ).innerHTML = `Your room ID is ${response}<button class="copy" onclick="navigator.clipboard.writeText('${response}');alert('Copied!');"><i class="fa-regular fa-copy"></i></button><br><br>Link to invite: <a href="${
-            location.protocol +
-            "//" +
-            location.host +
-            "/Chat Room/invite.php?id=" +
-            response
+            location.protocol + "//" + location.host + "/invite?id=" + response
           }" target="_blank">${
-            location.protocol +
-            "//" +
-            location.host +
-            "/Chat Room/invite.php?id=" +
-            response
+            location.protocol + "//" + location.host + "/invite?id=" + response
           }</a><button class="copy" onclick="navigator.clipboard.writeText('${
-            location.protocol +
-            "//" +
-            location.host +
-            "/Chat Room/invite.php?id=" +
-            response
+            location.protocol + "//" + location.host + "/invite?id=" + response
           }');alert('Copied!');"><i class="fa-regular fa-copy"></i></button>`;
         } else {
           notify("error", "Error", "An error occured: " + response);
@@ -241,18 +229,18 @@ document.getElementById("join").addEventListener("click", function () {
     let data = new FormData(form);
     data.append("id", id);
     $.ajax({
-      url: "./php/join.php",
+      url: "/php/join.php",
       type: "POST",
       data: data,
       success: function (response) {
         if (response == 1) {
-          location.href = `room.php?id=${id}`;
+          location.href = `/room?id=${id}`;
         } else if (response == 2) {
           notify("error", "Error", "Given room ID not found");
         } else if (response == 3) {
           notify("error", "Error", "A database error occured");
         } else if (response == 4) {
-          location.href = `room.php?id=${id}`;
+          location.href = `/room?id=${id}`;
         } else if (response == 5) {
           notify("error", "ERROR", "You are banned in this room");
         } else {
@@ -271,7 +259,7 @@ document.getElementById("join").addEventListener("click", function () {
 function getRooms() {
   roomsCont.innerHTML = "<h2>Your rooms</h2>";
   $.ajax({
-    url: "./php/rooms.php",
+    url: "/php/rooms.php",
     type: "POST",
     data: { novalue: JSON.stringify({ novalue: true }) },
     success: function (response) {
@@ -281,7 +269,7 @@ function getRooms() {
           roomsCont.innerHTML += `
       <div class="room">
         <p class="name">${element[0]}</p>
-        <button id="view" onclick="location.href='room.php?id=${element[1]}'">View</button>
+        <button id="view" onclick="location.href='/room?id=${element[1]}'">View</button>
       </div>`;
         });
       } else {
@@ -306,7 +294,7 @@ function deleteBookmark(id) {
   let data = new FormData(form);
   data.append("id", id);
   $.ajax({
-    url: "./php/deleteBookmark.php",
+    url: "/php/deleteBookmark.php",
     type: "POST",
     data: data,
     success: function (response) {
@@ -328,7 +316,7 @@ function openBookmarks() {
   `;
   document.getElementById("bookmark").classList.remove("hidden");
   $.ajax({
-    url: "./php/getBookmarks.php",
+    url: "/php/getBookmarks.php",
     type: "POST",
     data: { novalue: JSON.stringify({ novalue: true }) },
     success: function (response) {
@@ -353,7 +341,7 @@ function accept(username) {
   let data = new FormData(form);
   data.append("user", username);
   $.ajax({
-    url: "./php/acceptRequest.php",
+    url: "/php/acceptRequest.php",
     type: "POST",
     data: data,
     success: function (response) {
@@ -376,7 +364,7 @@ function accept(username) {
 }
 
 $.ajax({
-  url: "./php/getPending.php",
+  url: "/php/getPending.php",
   type: "POST",
   data: { novalue: JSON.stringify({ novalue: true }) },
   success: function (response) {
@@ -397,7 +385,7 @@ $.ajax({
 });
 
 $.ajax({
-  url: "./php/getAllFriends.php",
+  url: "/php/getAllFriends.php",
   type: "POST",
   data: { novalue: JSON.stringify({ novalue: true }) },
   success: function (response) {
@@ -418,7 +406,7 @@ $.ajax({
 });
 
 $.ajax({
-  url: "./php/getOnlineFriends.php",
+  url: "/php/getOnlineFriends.php",
   type: "POST",
   data: { novalue: JSON.stringify({ novalue: true }) },
   success: function (response) {
@@ -482,7 +470,7 @@ document.getElementById("sendRequest").addEventListener("click", () => {
     let data = new FormData(form);
     data.append("user", username);
     $.ajax({
-      url: "./php/sendRequest.php",
+      url: "/php/sendRequest.php",
       type: "POST",
       data: data,
       success: function (response) {
@@ -510,4 +498,3 @@ document.getElementById("sendRequest").addEventListener("click", () => {
     });
   }
 });
-// TODO: TOMORROW MAKE IT CHECK IF REQUEST IS SENT TO EXISTING FRIEND
