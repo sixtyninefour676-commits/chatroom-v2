@@ -7,9 +7,9 @@ CREATE TABLE IF NOT EXISTS users (
     username VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     online VARCHAR(10) DEFAULT 'false',
-    bookmarked TEXT DEFAULT '[]',
-    pending TEXT DEFAULT '[]',
-    friends TEXT DEFAULT '[]'
+    bookmarked TEXT,
+    pending TEXT,
+    friends TEXT
 );
 
 CREATE TABLE IF NOT EXISTS rooms (
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS rooms (
     name VARCHAR(255) NOT NULL,
     admin VARCHAR(255) NOT NULL,
     users TEXT DEFAULT '',
-    messages TEXT DEFAULT '[]',
-    muted TEXT DEFAULT '[]',
-    banned TEXT DEFAULT '[]'
+    messages TEXT,
+    muted TEXT,
+    banned TEXT
 );
