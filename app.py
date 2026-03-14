@@ -20,7 +20,7 @@ def js_files(filename):
 
 def db():
     return mysql.connector.connect(
-        host="localhost", user="root", password="", database="chat_room"
+        host="localhost", user="root", password="root123", database="chat_room"
     )
 
 def qone(sql, params=()):
